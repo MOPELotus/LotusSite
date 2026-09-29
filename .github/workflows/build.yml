@@ -1,0 +1,50 @@
+name: Sync and build LotusSite
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '17 20 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lotussite-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out site source
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Sync public project documentation
+        run: npm run docs:sync
+
+      - name: Build static site
+        run: npm run docs:build
+
+      - name: Check static output
+        run: test -s docs/.vitepress/dist/index.html
+
+      - name: Upload Apache-ready site
+        uses: actions/upload-artifact@v7
+        with:
+          name: lotussite-static
+          path: docs/.vitepress/dist/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30

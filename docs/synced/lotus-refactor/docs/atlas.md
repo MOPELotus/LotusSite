@@ -1,0 +1,37 @@
+# 图鉴与成就总览
+
+返回：[项目主页](https://github.com/MOPELotus/Lotus-ReFactor/blob/main/README.md) / [文档目录](https://github.com/MOPELotus/Lotus-ReFactor/blob/main/docs/README.md)
+
+图鉴数据来自 `nanoka-atlas-backend`。插件侧负责触发更新、维护本地索引、注册查询指令和渲染图片。
+
+## 小功能
+
+- [图鉴查询-多游戏资料](https://github.com/MOPELotus/Lotus-ReFactor/blob/main/docs/features/atlas-gallery.md)
+- [成就图鉴-查漏补缺](https://github.com/MOPELotus/Lotus-ReFactor/blob/main/docs/features/achievements.md)
+- [挑战查询-图鉴期数](https://github.com/MOPELotus/Lotus-ReFactor/blob/main/docs/features/challenge-query.md)
+
+## 数据更新
+
+首次使用时，如果本地没有：
+
+- `data/map.json`
+- `data/items`
+- `gallery`
+
+会调用后端执行全量抓取。默认只保留简体中文的原神、星铁、绝区零基础资料：角色、武器、套装、成就、邦布、敌人，以及挑战查询依赖的数据页。
+
+后续更新只增量抓取已保留的数据页；挑战轮换每两小时独立增量刷新一次，不依赖游戏版本变化。挑战期数优先使用源数据的起止时间，避免在月初或版本未更新时停留在上一期。
+
+更新入口：
+
+- `#图鉴状态`
+- `#更新图鉴`
+- `#检查图鉴更新`
+- `#全量更新图鉴`
+- `#重置图鉴`：仅清理插件的图鉴缓存；随后执行 `#全量更新图鉴` 重新初始化。
+
+## 查询分流
+
+裸挑战入口不会被图鉴抢占，例如 `#深渊`、`#幻想`、`#危战`、`*混沌`、`*末日`、`*异相`、`%防卫战` 等仍留给用户挑战数据查询。带“上期/本期/当期/下期”或日期语义时，才按图鉴挑战数据查询。
+
+成就数据使用本地图鉴的所有原神成就分类。分类名里的中点号可以省略；分类详情会把未完成条目前置，同名多阶段成就按整组排序。

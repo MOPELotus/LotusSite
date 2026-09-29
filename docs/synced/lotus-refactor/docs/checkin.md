@@ -1,0 +1,44 @@
+# 签到与调度总览
+
+返回：[项目主页](https://github.com/MOPELotus/Lotus-ReFactor/blob/main/README.md) / [文档目录](https://github.com/MOPELotus/Lotus-ReFactor/blob/main/docs/README.md)
+
+签到模块按 profile 执行，包含自动签到、游戏/社区签到开关、用户通知和随机/固定调度。
+
+## 小功能
+
+- [自动签到-多 profile](https://github.com/MOPELotus/Lotus-ReFactor/blob/main/docs/features/checkin.md)
+- [签到调度-随机与固定](https://github.com/MOPELotus/Lotus-ReFactor/blob/main/docs/features/scheduler.md)
+
+所有用户操作都允许在群聊执行。通知默认开启，私聊优先；若无法私聊，会在共同群聊 at 用户。
+
+## 支持范围
+
+游戏签到按上游能力支持：
+
+- 原神
+- 星铁
+- 绝区零
+- 崩坏2
+- 崩坏3
+- 未定事件簿
+- 崩坏：因缘精灵
+
+社区签到按米游社论坛支持：
+
+- 崩坏3
+- 原神
+- 崩坏2
+- 未定事件簿
+- 大别野
+- 星铁
+- 绝区零
+- 崩坏：因缘精灵
+- 星布谷地
+
+国际服和云游戏默认隐藏，只有用户绑定对应 token/cookie 后才参与。
+
+## 调度摘要
+
+随机模式会在前一天生成次日计划，把用户平均分布在 `00:00-23:30`。计划生成后会给用户发送签到时间图片。当天新注册的 profile 会补入当日计划，不会重新洗牌。
+
+锅巴面板和配置文件中的定时任务使用七段 cron，例如 `0 0 0 * * ? *` 表示每天 00:00 生成次日计划。插件启动后会检查是否错过当天的计划生成时间；如果已过时间但明日计划不存在，会自动补生成。
