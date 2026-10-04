@@ -110,6 +110,7 @@ export default defineConfig({
     nav: [
       { text: '首页', link: '/' },
       { text: '项目', items: projectItems },
+      { text: '捐赠', link: '/donate' },
       { text: '机器人帮助', link: '/yunzai/' },
       { text: '同步状态', link: '/sync-status' },
       { text: 'GitHub', link: 'https://github.com/MOPELotus' }

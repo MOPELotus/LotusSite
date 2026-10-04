@@ -33,3 +33,53 @@
 .hero-tagline {
   max-width: 46rem;
 }
+
+.donate-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  max-width: 920px;
+  margin: 2rem auto;
+}
+
+.donate-card {
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 16px;
+  background: var(--vp-c-bg-alt);
+  text-align: center;
+}
+
+.donate-card h2 {
+  margin: 0 0 1rem;
+  border-top: 0;
+  font-size: 1.25rem;
+}
+
+.donate-poster {
+  display: block;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.donate-poster img {
+  display: block;
+  width: 100%;
+  max-height: 620px;
+  margin: 0 auto;
+  object-fit: contain;
+}
+
+.donate-card p {
+  margin: 0.75rem 0 0;
+  color: var(--vp-c-text-2);
+}
+
+@media (max-width: 760px) {
+  .donate-grid {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 440px;
+  }
+}
