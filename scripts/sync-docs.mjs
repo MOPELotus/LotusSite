@@ -10,6 +10,13 @@ const generatedRoot = path.join(docsDir, 'synced')
 
 const sources = [
   {
+    slug: 'modernui-lumen',
+    title: 'ModernUI Lumen',
+    repository: 'MOPELotus/ModernUI-MC-Lumen',
+    branch: 'master',
+    readmeFile: 'README.zh-CN.md'
+  },
+  {
     slug: 'musichud-tuneweave',
     title: 'MusicHud-TuneWeave',
     repository: 'MOPELotus/MusicHud-TuneWeave',
@@ -147,9 +154,9 @@ function rewriteMarkdownTree(directory, sourceDirectory, repository, branch) {
   }
 }
 
-function copyReferencedAssets(sourceRoot, publishRoot) {
+function copyReferencedAssets(sourceRoot, publishRoot, preferredReadme) {
   const markdownFiles = []
-  const readmeName = ['README.md', 'readme.md'].find((name) => fs.existsSync(path.join(sourceRoot, name)))
+  const readmeName = [preferredReadme, 'README.md', 'readme.md'].filter(Boolean).find((name) => fs.existsSync(path.join(sourceRoot, name)))
   if (readmeName) markdownFiles.push(path.join(sourceRoot, readmeName))
   const visit = (directory) => {
     if (!fs.existsSync(directory)) return
@@ -193,7 +200,7 @@ function copyReferencedAssets(sourceRoot, publishRoot) {
 }
 
 function writeSourceNote(project, commit, sourceDir, destination) {
-  const readmeName = ['README.md', 'readme.md'].find((name) => fs.existsSync(path.join(sourceDir, name)))
+  const readmeName = [project.readmeFile, 'README.md', 'readme.md'].filter(Boolean).find((name) => fs.existsSync(path.join(sourceDir, name)))
   if (project.publishDocs !== false && readmeName) {
     const content = fs.readFileSync(path.join(sourceDir, readmeName), 'utf8')
     fs.writeFileSync(
@@ -215,7 +222,7 @@ function writeSourceNote(project, commit, sourceDir, destination) {
     const sourceDocs = path.join(sourceDir, 'docs')
     const destinationDocs = path.join(destination, 'docs')
     copyIfPresent(sourceDocs, destinationDocs)
-    copyReferencedAssets(sourceDir, destination)
+    copyReferencedAssets(sourceDir, destination, project.readmeFile)
     rewriteMarkdownTree(destinationDocs, destination, project.repository, project.branch)
   }
 

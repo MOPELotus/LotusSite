@@ -32,6 +32,7 @@ GitHub Actions 会每日同步文档并构建静态文件，构建产物可从�
 
 ## 内容源
 
+- [ModernUI Lumen](https://github.com/MOPELotus/ModernUI-MC-Lumen)（`master` 分支，中文 README）
 - [MusicHud-TuneWeave](https://github.com/MOPELotus/MusicHud-TuneWeave)
 - [TuneWeave](https://github.com/MOPELotus/TuneWeave)
 - [Lotus-ReFactor](https://github.com/MOPELotus/Lotus-ReFactor)

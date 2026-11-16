@@ -5,7 +5,7 @@ titleTemplate: 项目文档与帮助
 hero:
   name: MOPELotus
   text: 项目文档与帮助
-  tagline: 音乐服务、Minecraft 音乐模组、Yunzai 插件，以及正在运行的机器人指令指南。
+  tagline: 音乐服务、Minecraft 模组、Yunzai 插件，以及正在运行的机器人指令指南。
   actions:
     - theme: brand
       text: 查看机器人帮助
@@ -14,6 +14,10 @@ hero:
       text: 浏览项目
       link: /projects/musichud-tuneweave/
 features:
+  - icon: ✨
+    title: ModernUI Lumen
+    details: Modern UI 的 Minecraft 维护分支，提供字体排版、界面美化与渲染兼容修复。
+    link: /projects/modernui-lumen/
   - icon: 🎵
     title: MusicHud-TuneWeave
     details: 在 Minecraft 中搜索、播放音乐，显示歌词并与朋友共享队列。

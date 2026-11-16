@@ -57,6 +57,7 @@ function projectSidebar(slug: string, displayName: string): DefaultTheme.Sidebar
 }
 
 const projectItems = [
+  { text: 'ModernUI Lumen', link: '/projects/modernui-lumen/' },
   { text: 'MusicHud-TuneWeave', link: '/projects/musichud-tuneweave/' },
   { text: 'TuneWeave', link: '/projects/tuneweave/' },
   { text: 'Lotus-ReFactor', link: '/projects/lotus-refactor/' }
@@ -120,6 +121,8 @@ export default defineConfig({
       copyright: 'MOPELotus'
     },
     sidebar: {
+      '/projects/modernui-lumen/': projectSidebar('modernui-lumen', 'ModernUI Lumen'),
+      '/synced/modernui-lumen/': projectSidebar('modernui-lumen', 'ModernUI Lumen'),
       '/yunzai/': yunzaiSidebar,
       '/projects/musichud-tuneweave/': projectSidebar('musichud-tuneweave', 'MusicHud-TuneWeave'),
       '/synced/musichud-tuneweave/': projectSidebar('musichud-tuneweave', 'MusicHud-TuneWeave'),
