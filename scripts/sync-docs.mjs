@@ -36,10 +36,9 @@ const sources = [
   },
   {
     slug: 'yunzai',
-    title: 'MOPELotus/Miao-Yunzai',
-    repository: 'MOPELotus/Miao-Yunzai',
-    branch: 'TRSS',
-    publishDocs: false
+    title: 'Lotus-Yunzai',
+    repository: 'MOPELotus/Lotus-Yunzai',
+    branch: 'main'
   }
 ]
 
@@ -134,6 +133,17 @@ function adaptLotusRefactorPrefixes(content, sourceRelativePath) {
 }
 
 function rewriteProjectMarkdown(content, repository, branch, sourceRelativePath) {
+  if (repository === 'MOPELotus/Lotus-Yunzai') {
+    return content.replace(/(?<!!)\]\((?!https?:|mailto:|#)([^)]+)\)/g, (match, target) => {
+      const [file, fragment = ''] = target.split('#', 2)
+      const relative = path.posix.normalize(path.posix.join(path.posix.dirname(sourceRelativePath), file))
+      if (/\.md$/i.test(relative) && !relative.startsWith('../')) {
+        const route = relative === 'README.md' ? '/yunzai/' : `/yunzai/${relative.replace(/\.md$/i, '')}`
+        return `](${route}${fragment ? `#${fragment}` : ''})`
+      }
+      return rewriteSourceMarkdown(match, repository, branch, sourceRelativePath)
+    })
+  }
   const rewritten = rewriteSourceMarkdown(content, repository, branch, sourceRelativePath)
   if (repository !== 'MOPELotus/Lotus-ReFactor') return rewritten
   return adaptLotusRefactorPrefixes(rewritten, sourceRelativePath)
@@ -262,6 +272,18 @@ try {
     fs.rmSync(destination, { recursive: true, force: true })
     fs.mkdirSync(path.dirname(destination), { recursive: true })
     fs.cpSync(path.join(tempRoot, 'generated', row.slug), destination, { recursive: true })
+    if (row.slug === 'yunzai') {
+      const routeRoot = path.join(docsDir, 'yunzai')
+      fs.rmSync(routeRoot, { recursive: true, force: true })
+      fs.cpSync(destination, routeRoot, { recursive: true })
+      fs.renameSync(path.join(routeRoot, 'README.md'), path.join(routeRoot, 'index.md'))
+      fs.rmSync(destination, { recursive: true, force: true })
+      const legacyRoutes = { commands: 'user/commands', genshin: 'user/panels', zzz: 'user/panels', tools: 'user/tools', plugins: 'operator/plugins', group: 'user/group', faq: 'user/basics' }
+      for (const [alias, target] of Object.entries(legacyRoutes)) {
+        fs.writeFileSync(path.join(routeRoot, `${alias}.md`),
+          `<script setup>\nimport { onMounted } from 'vue'\nonMounted(() => window.location.replace('/yunzai/docs/${target}' + window.location.hash))\n</script>\n\n[Lotus-Yunzai](/yunzai/docs/${target})\n`)
+      }
+    }
   }
 
   const rowsMarkdown = rows.map((row) => {

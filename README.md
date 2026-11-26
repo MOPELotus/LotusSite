@@ -28,7 +28,7 @@ GitHub Actions 会每日同步文档并构建静态文件，构建产物可从�
 
 - 项目介绍与 Yunzai 用户帮助位于 `docs/`，由本站维护。
 - 项目仓库中的 README、`docs/`、图片和许可证会同步到 `docs/synced/`，只在构建产物中提供，并显示来源分支和提交。
-- Yunzai 帮助按当前机器人安装的插件整理。插件、命令或权限调整后，请同步更新相应页面。
+- Lotus-Yunzai 帮助文档由其 `main` 分支的 README 及 `docs` 目录自动同步至 `/yunzai/`。本站不另行维护命令副本，文档变更请直接在上游仓库提交。
 
 ## 内容源
 
@@ -36,4 +36,4 @@ GitHub Actions 会每日同步文档并构建静态文件，构建产物可从�
 - [MusicHud-TuneWeave](https://github.com/MOPELotus/MusicHud-TuneWeave)
 - [TuneWeave](https://github.com/MOPELotus/TuneWeave)
 - [Lotus-ReFactor](https://github.com/MOPELotus/Lotus-ReFactor)
-- [MOPELotus/Miao-Yunzai](https://github.com/MOPELotus/Miao-Yunzai)
+- [Lotus-Yunzai](https://github.com/MOPELotus/Lotus-Yunzai)

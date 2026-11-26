@@ -60,7 +60,7 @@ const projectItems = [
   { text: 'ModernUI Lumen', link: '/projects/modernui-lumen/' },
   { text: 'MusicHud-TuneWeave', link: '/projects/musichud-tuneweave/' },
   { text: 'TuneWeave', link: '/projects/tuneweave/' },
-  { text: 'Lotus-ReFactor', link: '/projects/lotus-refactor/' }
+  { text: 'Lotus-Yunzai', link: '/projects/lotus-yunzai/' }
 ]
 
 const lotusRefactorDocs = markdownSidebar(
@@ -70,24 +70,11 @@ const lotusRefactorDocs = markdownSidebar(
 
 const yunzaiSidebar: DefaultTheme.SidebarItem[] = [
   {
-    text: '机器人使用指南',
+    text: 'Lotus-Yunzai',
     items: [
-      { text: '总览与快速上手', link: '/yunzai/' },
-      { text: '指令写法与权限', link: '/yunzai/commands' },
-      {
-        text: '荷花插件（Refactor）',
-        collapsed: true,
-        items: [
-          { text: '插件介绍', link: '/projects/lotus-refactor/' },
-          ...lotusRefactorDocs
-        ]
-      },
-      { text: '原神', link: '/yunzai/genshin' },
-      { text: '绝区零', link: '/yunzai/zzz' },
-      { text: '实用工具与娱乐', link: '/yunzai/tools' },
-      { text: '已安装插件目录', link: '/yunzai/plugins' },
-      { text: '群聊管理', link: '/yunzai/group' },
-      { text: '常见问题', link: '/yunzai/faq' }
+      { text: '快速开始', link: '/yunzai/' },
+      { text: '用户指南', collapsed: false, items: markdownSidebar(path.join(docsRoot, 'yunzai', 'docs', 'user'), '/yunzai/docs/user') },
+      { text: '主人与开发者文档', collapsed: true, items: markdownSidebar(path.join(docsRoot, 'yunzai', 'docs', 'operator'), '/yunzai/docs/operator') }
     ]
   }
 ]
@@ -128,8 +115,9 @@ export default defineConfig({
       '/synced/musichud-tuneweave/': projectSidebar('musichud-tuneweave', 'MusicHud-TuneWeave'),
       '/projects/tuneweave/': projectSidebar('tuneweave', 'TuneWeave'),
       '/synced/tuneweave/': projectSidebar('tuneweave', 'TuneWeave'),
-      '/projects/lotus-refactor/': yunzaiSidebar,
-      '/synced/lotus-refactor/': yunzaiSidebar
+      '/projects/lotus-yunzai/': yunzaiSidebar,
+      '/projects/lotus-refactor/': projectSidebar('lotus-refactor', 'Lotus-ReFactor'),
+      '/synced/lotus-refactor/': projectSidebar('lotus-refactor', 'Lotus-ReFactor')
     },
     search: {
       provider: 'local',
