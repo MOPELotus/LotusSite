@@ -8,6 +8,8 @@ const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const docsDir = path.join(rootDir, 'docs')
 const generatedRoot = path.join(docsDir, 'synced')
 
+const yunzaiRoutes = { 'docs/图片文字识别.md': 'docs/ocr.md', 'docs/捐赠卡.md': 'docs/donation-card.md' }
+
 const sources = [
   {
     slug: 'modernui-lumen',
@@ -138,7 +140,8 @@ function rewriteProjectMarkdown(content, repository, branch, sourceRelativePath)
       const [file, fragment = ''] = target.split('#', 2)
       const relative = path.posix.normalize(path.posix.join(path.posix.dirname(sourceRelativePath), file))
       if (/\.md$/i.test(relative) && !relative.startsWith('../')) {
-        const route = relative === 'README.md' ? '/yunzai/' : `/yunzai/${relative.replace(/\.md$/i, '')}`
+        const published = yunzaiRoutes[relative] ?? relative
+        const route = published === 'README.md' ? '/yunzai/' : `/yunzai/${published.replace(/\.md$/i, '')}`
         return `](${route}${fragment ? `#${fragment}` : ''})`
       }
       return rewriteSourceMarkdown(match, repository, branch, sourceRelativePath)
@@ -277,6 +280,9 @@ try {
       fs.rmSync(routeRoot, { recursive: true, force: true })
       fs.cpSync(destination, routeRoot, { recursive: true })
       fs.renameSync(path.join(routeRoot, 'README.md'), path.join(routeRoot, 'index.md'))
+      for (const [source, target] of Object.entries(yunzaiRoutes)) {
+        if (fs.existsSync(path.join(routeRoot, source))) fs.renameSync(path.join(routeRoot, source), path.join(routeRoot, target))
+      }
       fs.rmSync(destination, { recursive: true, force: true })
       const legacyRoutes = { commands: 'user/commands', genshin: 'user/panels', zzz: 'user/panels', tools: 'user/tools', plugins: 'operator/plugins', group: 'user/group', faq: 'user/basics' }
       for (const [alias, target] of Object.entries(legacyRoutes)) {
